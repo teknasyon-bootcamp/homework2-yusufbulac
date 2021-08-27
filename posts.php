@@ -1,5 +1,5 @@
 <?php
-
+require_once "functions.php";
 /**
  * posts.php
  *
@@ -20,3 +20,14 @@
  * dosyasını döngü içinde dahil etmeli ve her yazı için detayları göstermelisiniz.
  */
 
+//getLatestPosts fonksiyonu ile random post değerleri oluşturup $posts adlı diziye aktarıyoruz.
+$posts = getLatestPosts(getRandomPostCount());
+
+//$posts dizisinde oluşturulan değerleri "post.php" de include ederek döndürüp postlarımızı oluşturuyoruz.
+foreach ($posts as $id => $post) {
+
+    $type = $post["type"];
+    $title = $post["title"];
+
+    require "post.php";
+}

@@ -1,4 +1,5 @@
 <?php
+require_once "functions.php";
 
 /**
  * post.php
@@ -23,3 +24,24 @@
  * - `getPostDetails` fonksiyonu tetiklenerek ilgili içeriğin çıktısı gösterilmeli.
  */
 
+ //$id, $title ve $type değişkenleri için isset kontrolü yapıyoruz. Eğer değişkenler yoksa değişkenlere default değerler atıyoruz. Ayrıca $type değişkeni için getLatestPosts fonksiyonundan gelen değerleri css tanımlamalarına uygun hale getiriyoruz.
+if (!isset($id)) {
+    $id = 1;
+}
+
+if (!isset($title)) {
+    $title = "myDefaultTitle";
+}
+
+if (!isset($type)) {
+    $type = "yellow";
+} elseif ($type == "urgent") {
+    $type = "red";
+} elseif ($type == "warning") {
+    $type = "yellow";
+}
+
+//div oluşturup getPostDetails fonksiyonu ile postumuzu oluşturuyoruz.
+echo "<div style='background-color:$type;'>";
+getPostDetails($id, $title);
+echo "</div>";

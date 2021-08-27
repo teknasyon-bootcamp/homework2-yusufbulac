@@ -1,5 +1,10 @@
 <?php
 
+//Eğer direkt olarak "functions.php" sayfasına erişilmek isteniyorsa aşağıdaki kod bloğuyla bunu engelliyoruz.
+if (basename($_SERVER["PHP_SELF"]) == basename(__FILE__)) {
+    exit("Bu sayfaya direkt erişim yetkiniz bulunmamaktadır.");
+}
+
 /**
  * functions.php
  *
@@ -21,12 +26,12 @@ function getLatestPosts($count = 5)
     $posts = [];
     $postTypes = ["urgent", "warning", "normal"];
 
-    for($i=1; $i<=$count; $i++) {
+    for ($i = 1; $i <= $count; $i++) {
         do {
             $id = rand(1, 1000);
         } while (array_key_exists($id, $posts));
 
-        $type = $postTypes[rand(0, count($postTypes)-1)];
+        $type = $postTypes[rand(0, count($postTypes) - 1)];
 
         $posts[$id] = [
             "title" => "Yazı " . $i,
@@ -39,7 +44,7 @@ function getLatestPosts($count = 5)
 
 function getPostDetails($id, $title)
 {
-    echo "<h1>".$title." (#".$id.")</h1>";
+    echo "<h1>" . $title . " (#" . $id . ")</h1>";
     echo <<<EOT
 <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a iaculis justo, ac molestie justo. Integer semper nibh non imperdiet blandit. Integer nec diam eget sapien viverra rutrum ut eu justo. Suspendisse efficitur pretium eleifend. Vivamus ex nibh, euismod eget massa ut, accumsan ullamcorper nisi. Phasellus tristique magna et nibh dictum rhoncus. Phasellus at metus quis mi egestas blandit. Vestibulum lacinia ut tortor nec consectetur. Nulla sed risus ut est imperdiet vulputate ac non quam. Aliquam viverra erat vitae diam commodo, et molestie metus ultricies. Praesent rutrum urna a nisi egestas aliquam sit amet eu eros.
@@ -49,3 +54,8 @@ EOT;
 
 // Aşağıya fonksiyonu tanımlayabilirsiniz.
 
+//getRandomPostCount fonk. ile belirlediğimiz aralıkta random bir sayı oluşturuyoruz
+function getRandomPostCount($min = 1, $max = 7)
+{
+    return rand($min, $max);
+}
